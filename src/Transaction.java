@@ -1,36 +1,38 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Transaction {
-private  String accountNumber;
-private String accountType;
+    private int accountNumber;
+    private String transactionType;
+    private double transactionAmount;
+    private String transactionDateTime;
 
-private double amount;
+    public Transaction(int accountNumber, String transactionType, double transactionAmount) {
+        this.accountNumber = accountNumber;
+        this.transactionType = transactionType;
+        this.transactionAmount = transactionAmount;
+        this.transactionDateTime = getCurrentDateTime();
+    }
 
-private String timeStamp;
+    public int getAccountNumber() {
+        return accountNumber;
+    }
 
+    public String getTransactionType() {
+        return transactionType;
+    }
 
-Transaction(String accountType,String account,double amount,String accountNumber){
+    public double getTransactionAmount() {
+        return transactionAmount;
+    }
 
-    this.accountType = accountType;
-    this.amount = amount;
-    this.accountNumber = accountNumber;
+    public String getTransactionDateTime() {
+        return transactionDateTime;
+    }
 
-
-    LocalDateTime now = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss");
-    this.timeStamp = now.format(formatter);
-}
-
-
- public  String toSting() {
-    if (accountType != null)
-        return "Transaction{" +
-                "accountNumber='" + accountNumber + '\'' +
-                ", accountType='" + accountType + '\'' +
-                ", amount=" + amount +
-                ", timeStamp='" + timeStamp + '\'' +
-                '}';
-     else return "Account Number: " +accountNumber + "Account is closed "+ "," + timeStamp;
-}
+    private String getCurrentDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 }
